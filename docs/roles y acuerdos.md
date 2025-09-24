@@ -1,8 +1,8 @@
 ### Roles:
-- **Product Owner (PO)**: Mateo
-- **Scrum Master (SM)**: Nicolas
-- **Tech Lead (TL)**: Oscar
-- **UX/UI Designer**: Cetina
+- **Product Owner (PO)**: Mateo González
+- **Scrum Master (SM)**: Nicolas Castañeda
+- **Tech Lead (TL)**: Oscar Vergara
+- **UX/UI Designer**: Juan Cetina
 
 ### Acuerdos:
 - **Reuniones diarias**: 
