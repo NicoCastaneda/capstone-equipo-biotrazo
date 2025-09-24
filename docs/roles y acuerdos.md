@@ -5,4 +5,5 @@
 - **UX/UI Designer**: Juan Cetina
 
 ### Acuerdos:
+- **Venir a clase**: 
 - **Reuniones diarias**: 
