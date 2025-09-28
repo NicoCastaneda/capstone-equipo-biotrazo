@@ -1,0 +1,18 @@
+# Node.js
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*.log
+
+# VSCode
+.vscode/
+
+# Entornos virtuales
+venv/
+env/
+
+# Archivos de configuración sensibles
+.env
+*.json
