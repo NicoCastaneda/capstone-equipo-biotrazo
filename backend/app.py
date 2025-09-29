@@ -42,36 +42,25 @@ def require_auth(f):
 @app.route('/api/auth/register', methods=['POST'])
 def register():
     """Registrar nuevo agricultor"""
-    data = request.get_json()
-    
-    required = ['email', 'password']
-    if not all(field in data for field in required):
-        return jsonify({'error': 'Email y contraseña son obligatorios'}), 400
-    
-    result, status_code = AuthService.register_user(
-        email=data['email'],
-        password=data['password'],
+    data = request.json
+    response, status = AuthService.register_user(
+        email=data.get('email'),
+        password=data.get('password'),
         name=data.get('name'),
         phone=data.get('phone'),
         farm_name=data.get('farm_name')
     )
-    
-    return jsonify(result), status_code
+    return jsonify(response), status
 
 @app.route('/api/auth/login', methods=['POST'])
 def login():
     """Login de agricultor"""
-    data = request.get_json()
-    
-    if not data.get('email') or not data.get('password'):
-        return jsonify({'error': 'Email y contraseña son obligatorios'}), 400
-    
-    result, status_code = AuthService.login_user(
-        email=data['email'],
-        password=data['password']
+    data = request.json
+    response, status = AuthService.login_user(
+        email=data.get('email'),
+        password=data.get('password')
     )
-    
-    return jsonify(result), status_code
+    return jsonify(response), status
 
 @app.route('/api/auth/reset-password', methods=['POST'])
 def reset_password():

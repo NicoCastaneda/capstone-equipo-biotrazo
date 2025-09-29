@@ -5,6 +5,7 @@ import { Leaf, Mail, Lock, User } from 'lucide-react';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -16,12 +17,14 @@ const LoginPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage("");
 
     try {
       await login(formData.email, formData.password, formData.role);
-      navigate('/dashboard');
-    } catch (error) {
-      console.error('Login error:', error);
+      navigate("/dashboard");
+    } catch (error: any) {
+      console.error("Login error:", error);
+      setErrorMessage(error.message || "Error iniciando sesión");
     } finally {
       setLoading(false);
     }
@@ -50,11 +53,10 @@ const LoginPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setFormData(prev => ({ ...prev, role: 'farmer' }))}
-                  className={`flex-1 py-3 px-4 rounded-lg border-2 transition-colors duration-200 ${
-                    formData.role === 'farmer'
+                  className={`flex-1 py-3 px-4 rounded-lg border-2 transition-colors duration-200 ${formData.role === 'farmer'
                       ? 'border-green-500 bg-green-50 text-green-700'
                       : 'border-gray-300 hover:border-gray-400 text-gray-600'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center justify-center space-x-2">
                     <Leaf className="h-5 w-5" />
@@ -64,11 +66,10 @@ const LoginPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setFormData(prev => ({ ...prev, role: 'buyer' }))}
-                  className={`flex-1 py-3 px-4 rounded-lg border-2 transition-colors duration-200 ${
-                    formData.role === 'buyer'
+                  className={`flex-1 py-3 px-4 rounded-lg border-2 transition-colors duration-200 ${formData.role === 'buyer'
                       ? 'border-blue-500 bg-blue-50 text-blue-700'
                       : 'border-gray-300 hover:border-gray-400 text-gray-600'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center justify-center space-x-2">
                     <User className="h-5 w-5" />
@@ -123,6 +124,13 @@ const LoginPage: React.FC = () => {
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
+
+            {errorMessage && (
+              <div className="mt-4 text-center text-sm text-red-600">
+                {errorMessage}
+              </div>
+            )}
+
           </form>
 
           <div className="mt-6 text-center">

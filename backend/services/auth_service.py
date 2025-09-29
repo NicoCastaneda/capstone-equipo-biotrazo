@@ -82,7 +82,7 @@ class AuthService:
             }, 200
             
         except auth.UserNotFoundError:
-            return {'error': 'Usuario no encontrado'}, 404
+            return {'error': 'No existe ninguna cuenta con este correo'}, 404
         except Exception as e:
             return {'error': str(e)}, 500
     
