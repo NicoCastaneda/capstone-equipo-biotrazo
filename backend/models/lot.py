@@ -18,13 +18,17 @@ class Lot:
         self.location = location
         self.status = 'active'
         self.qr_code = None
-        self.traceability_code = self.generate_traceability_code()
+        
+        # Generar código de trazabilidad DIRECTAMENTE aquí
+        timestamp = datetime.utcnow().strftime('%Y%m%d%H%M%S')
+        self.traceability_code = f"LOT-{timestamp}-{self.id[:8].upper()}"
+        
         self.created_at = datetime.utcnow()
         self.updated_at = datetime.utcnow()
         self.harvest_date = None
         self.events = []
         
-        # ⬇️ AGREGAR ESTOS CAMPOS NUEVOS:
+        # Nuevos campos
         self.certifications = certifications or []
         self.price = price or 0
         self.currency = currency or 'COP'
@@ -33,6 +37,36 @@ class Lot:
             'waterSaved': 0,
             'emissionsReduced': 0
         }
+    
+    def generate_qr(self):
+        """Generar código QR para el lote"""
+        qr_data = {
+            'lot_id': self.id,
+            'traceability_code': self.traceability_code,
+            'crop_type': self.crop_type,
+            'quantity': f"{self.quantity} {self.unit}",
+            'created_at': self.created_at.isoformat(),
+            'farmer_uid': self.farmer_uid
+        }
+        
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(json.dumps(qr_data))
+        qr.make(fit=True)
+        
+        img = qr.make_image(fill_color="black", back_color="white")
+        
+        # Guardar QR como base64
+        buffered = BytesIO()
+        img.save(buffered, format="PNG")
+        img_str = base64.b64encode(buffered.getvalue()).decode()
+        
+        self.qr_code = img_str
+        return img_str
     
     def to_dict(self):
         """Convertir a diccionario serializable para Firestore"""
@@ -50,7 +84,6 @@ class Lot:
             'updated_at': self.updated_at,
             'harvest_date': self.harvest_date,
             'events': self.events,
-            # ⬇️ AGREGAR ESTOS CAMPOS:
             'certifications': self.certifications,
             'price': self.price,
             'currency': self.currency,
@@ -73,7 +106,8 @@ class Lot:
     
     def update(self, data):
         """Actualizar lote"""
-        allowed_fields = ['crop_type', 'quantity', 'unit', 'location', 'status', 'harvest_date']
+        allowed_fields = ['crop_type', 'quantity', 'unit', 'location', 'status', 'harvest_date', 
+                         'certifications', 'price', 'currency', 'sustainability_metrics']
         update_data = {k: v for k, v in data.items() if k in allowed_fields}
         update_data['updated_at'] = datetime.utcnow()
         
@@ -119,16 +153,16 @@ class Lot:
     def get_by_farmer(farmer_uid, include_deleted=False):
         """Obtener todos los lotes de un agricultor"""
         try:
-            query = db.collection('lots').where('farmer_uid', '==', farmer_uid)
+            query = db.collection('lots').where(filter=firestore.FieldFilter('farmer_uid', '==', farmer_uid))
             
             if not include_deleted:
-                query = query.where('status', '==', 'active')
+                query = query.where(filter=firestore.FieldFilter('status', '==', 'active'))
             
             docs = query.stream()
             lots = []
             for doc in docs:
                 lot_data = doc.to_dict()
-                lot_data['id'] = doc.id  # Asegurar que tenga el ID
+                lot_data['id'] = doc.id
                 lots.append(lot_data)
             
             print(f"✅ Encontrados {len(lots)} lotes para farmer {farmer_uid}")
