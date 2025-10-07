@@ -23,12 +23,12 @@ const LotForm: React.FC<LotFormProps> = ({ onLotCreated }) => {
   });
 
   const certificationOptions = [
-    'Organic',
-    'Fair Trade',
-    'Free Range',
-    'Non-GMO',
-    'Sustainable',
-    'Locally Grown',
+    'Orgánico',
+    'Comercio Justo',
+    'Pastoreo Libre',
+    'Sin OGM',
+    'Sostenible',
+    'Cultivado Localmente',
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -47,7 +47,7 @@ const LotForm: React.FC<LotFormProps> = ({ onLotCreated }) => {
         location: formData.location,
         certifications: formData.certifications,
         price: Number(formData.price),
-        currency: 'USD',
+        currency: 'COP',
         sustainabilityMetrics: {
           carbonSaved: Math.random() * 50 + 20,
           waterSaved: Math.random() * 100 + 50,
@@ -89,14 +89,14 @@ const LotForm: React.FC<LotFormProps> = ({ onLotCreated }) => {
         className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200"
       >
         <Plus className="h-4 w-4 mr-2" />
-        Create New Lot
+        Crear nuevo lote
       </button>
 
       {isOpen && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between p-6 border-b">
-              <h3 className="text-lg font-medium text-gray-900">Create New Lot</h3>
+              <h3 className="text-lg font-medium text-gray-900">Crear nuevo lote</h3>
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-gray-400 hover:text-gray-600"
@@ -108,14 +108,14 @@ const LotForm: React.FC<LotFormProps> = ({ onLotCreated }) => {
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Product Type *
+                  Tipo de producto *
                 </label>
                 <input
                   type="text"
                   required
                   value={formData.type}
                   onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value }))}
-                  placeholder="e.g., Organic Tomatoes"
+                  placeholder="ej. Residuos de caña"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
                 />
               </div>
@@ -123,7 +123,7 @@ const LotForm: React.FC<LotFormProps> = ({ onLotCreated }) => {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Quantity *
+                    Cantidad *
                   </label>
                   <input
                     type="number"
@@ -136,7 +136,7 @@ const LotForm: React.FC<LotFormProps> = ({ onLotCreated }) => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Unit
+                    Unidad
                   </label>
                   <select
                     value={formData.unit}
@@ -145,15 +145,14 @@ const LotForm: React.FC<LotFormProps> = ({ onLotCreated }) => {
                   >
                     <option value="kg">kg</option>
                     <option value="lbs">lbs</option>
-                    <option value="dozen">dozen</option>
-                    <option value="bushel">bushel</option>
+                    <option value="dozen">docena</option>
                   </select>
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Harvest Date *
+                  Fecha de cosecha *
                 </label>
                 <input
                   type="date"
@@ -166,21 +165,21 @@ const LotForm: React.FC<LotFormProps> = ({ onLotCreated }) => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Location *
+                  Ubicación *
                 </label>
                 <input
                   type="text"
                   required
                   value={formData.location}
                   onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
-                  placeholder="e.g., California, USA"
+                  placeholder="ej. Vereda El Paraíso, Valle del Cauca"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Price per {formData.unit} (USD) *
+                  Precio por {formData.unit} (COP) *
                 </label>
                 <input
                   type="number"
@@ -195,7 +194,7 @@ const LotForm: React.FC<LotFormProps> = ({ onLotCreated }) => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Certifications
+                  Certificaciones
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {certificationOptions.map((cert) => (
@@ -221,14 +220,14 @@ const LotForm: React.FC<LotFormProps> = ({ onLotCreated }) => {
                   onClick={() => setIsOpen(false)}
                   className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
                   className="flex-1 px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
                 >
-                  {loading ? 'Creating...' : 'Create Lot'}
+                  {loading ? 'Creando...' : 'Crear Lote'}
                 </button>
               </div>
             </form>

@@ -18,7 +18,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }
 
   const navigation = [
-    { name: 'Dashboard', href: '/dashboard' },
+    { name: 'Página Principal', href: '/dashboard' },
   ];
 
   return (
@@ -29,7 +29,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <div className="flex items-center">
               <Link to="/dashboard" className="flex items-center space-x-2">
                 <Leaf className="h-8 w-8 text-green-600" />
-                <span className="text-xl font-bold text-gray-900">AgroTrace</span>
+                <span className="text-xl font-bold text-gray-900">BioTrazo</span>
               </Link>
             </div>
 
@@ -74,7 +74,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                   className="flex items-center space-x-1 text-gray-500 hover:text-gray-700 transition-colors duration-200"
                 >
                   <LogOut className="h-4 w-4" />
-                  <span className="hidden sm:inline text-sm">Logout</span>
+                  <span className="hidden sm:inline text-sm">Salir</span>
                 </button>
               </div>
             </div>

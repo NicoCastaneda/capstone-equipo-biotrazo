@@ -35,7 +35,7 @@ const DashboardPage: React.FC = () => {
 
   const handleOfferClick = (lot: Lot) => {
     // Mock offer functionality
-    alert(`Making an offer for ${lot.type} from ${lot.farmerName}`);
+    alert(`Oferta por ${lot.type} de ${lot.farmerName}`);
   };
 
   if (loading) {
@@ -54,12 +54,12 @@ const DashboardPage: React.FC = () => {
         {/* Welcome Section */}
         <div className="bg-gradient-to-r from-green-600 to-blue-600 rounded-lg p-8 text-white">
           <h1 className="text-3xl font-bold mb-2">
-            Welcome back, {user?.name}!
+            Bienvenido de nuevo, {user?.name}!
           </h1>
           <p className="text-green-100 text-lg">
             {user?.role === 'farmer' 
-              ? 'Manage your sustainable produce and track your environmental impact.'
-              : 'Discover sustainable produce and support eco-friendly farming practices.'
+              ? 'Administra tus productos sostenibles y rastrea tu impacto ambiental.'
+              : 'Descubre productos sostenibles y apoya prácticas agrícolas ecológicas y libres de carbón.'
             }
           </p>
         </div>
@@ -71,7 +71,7 @@ const DashboardPage: React.FC = () => {
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold text-gray-900">
-              {user?.role === 'farmer' ? 'Your Lots' : 'Available Lots'}
+              {user?.role === 'farmer' ? 'Tus lotes' : 'Lotes disponibles'}
             </h2>
             {user?.role === 'farmer' && (
               <LotForm onLotCreated={handleLotCreated} />
@@ -94,19 +94,19 @@ const DashboardPage: React.FC = () => {
               <div className="text-2xl font-bold text-gray-900 mb-2">
                 {lots.filter(lot => lot.status === 'available').length}
               </div>
-              <div className="text-sm text-gray-600">Available Lots</div>
+              <div className="text-sm text-gray-600">Lotes disponibles</div>
             </div>
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
               <div className="text-2xl font-bold text-gray-900 mb-2">
                 {lots.filter(lot => lot.status === 'sold').length}
               </div>
-              <div className="text-sm text-gray-600">Sold Lots</div>
+              <div className="text-sm text-gray-600">Lotes vendidos</div>
             </div>
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
               <div className="text-2xl font-bold text-gray-900 mb-2">
                 ${lots.reduce((sum, lot) => sum + (lot.price * lot.quantity), 0).toLocaleString()}
               </div>
-              <div className="text-sm text-gray-600">Total Value</div>
+              <div className="text-sm text-gray-600">Valor total</div>
             </div>
           </div>
         )}

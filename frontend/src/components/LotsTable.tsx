@@ -12,9 +12,9 @@ const LotsTable: React.FC<LotsTableProps> = ({ lots, showActions = false, onOffe
   if (lots.length === 0) {
     return (
       <div className="text-center py-12">
-        <div className="text-gray-400 text-lg mb-2">No lots available</div>
+        <div className="text-gray-400 text-lg mb-2">Sin lotes disponibles</div>
         <div className="text-gray-500 text-sm">
-          {showActions ? 'Check back later for new listings' : 'Create your first lot to get started'}
+          {showActions ? 'Vuelve más tarde para ver nuevos anuncios' : 'Crea tu primer lote para comenzar'}
         </div>
       </div>
     );
@@ -46,11 +46,11 @@ const LotsTable: React.FC<LotsTableProps> = ({ lots, showActions = false, onOffe
               </div>
               <div className="flex items-center text-sm text-gray-600">
                 <Calendar className="h-4 w-4 mr-2" />
-                Harvested: {new Date(lot.harvestDate).toLocaleDateString()}
+                Cosechado: {new Date(lot.harvestDate).toLocaleDateString()}
               </div>
               <div className="flex items-center text-sm text-gray-600">
                 <QrCode className="h-4 w-4 mr-2" />
-                Quantity: {lot.quantity} {lot.unit}
+                Cantidad: {lot.quantity} {lot.unit}
               </div>
             </div>
 
@@ -58,7 +58,7 @@ const LotsTable: React.FC<LotsTableProps> = ({ lots, showActions = false, onOffe
               <div className="mb-4">
                 <div className="flex items-center text-sm text-gray-600 mb-2">
                   <Award className="h-4 w-4 mr-2" />
-                  Certifications
+                  Certificaciones
                 </div>
                 <div className="flex flex-wrap gap-1">
                   {lot.certifications.map((cert) => (
@@ -75,7 +75,7 @@ const LotsTable: React.FC<LotsTableProps> = ({ lots, showActions = false, onOffe
 
             <div className="border-t pt-4">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-sm text-gray-600">Price per {lot.unit}</span>
+                <span className="text-sm text-gray-600">Precio por {lot.unit}</span>
                 <span className="text-lg font-bold text-gray-900">
                   ${lot.price} {lot.currency}
                 </span>
@@ -97,7 +97,7 @@ const LotsTable: React.FC<LotsTableProps> = ({ lots, showActions = false, onOffe
                   disabled={lot.status !== 'available'}
                   className="w-full px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed rounded-md transition-colors duration-200"
                 >
-                  {lot.status === 'available' ? 'Make Offer' : 'Not Available'}
+                  {lot.status === 'available' ? 'Hacer Oferta' : 'No Disponible'}
                 </button>
               )}
             </div>

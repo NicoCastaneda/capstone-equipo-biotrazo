@@ -41,35 +41,35 @@ const SustainabilityImpactSection: React.FC = () => {
 
   const metrics = [
     {
-      title: 'Carbon Saved',
+      title: 'Carbón Ahorrado',
       value: `${impact.totalCarbonSaved} kg`,
       icon: Leaf,
       color: 'text-green-600',
       bgColor: 'bg-green-100',
     },
     {
-      title: 'Water Saved',
+      title: 'Agua Ahorrada',
       value: `${impact.totalWaterSaved} L`,
       icon: Droplets,
       color: 'text-blue-600',
       bgColor: 'bg-blue-100',
     },
     {
-      title: 'Emissions Reduced',
+      title: 'Emisiones Reducidas',
       value: `${impact.totalEmissionsReduced} kg CO²`,
       icon: Zap,
       color: 'text-yellow-600',
       bgColor: 'bg-yellow-100',
     },
     {
-      title: 'Lots Created',
+      title: 'Lotes Creados',
       value: impact.lotsCreated.toString(),
       icon: Package,
       color: 'text-purple-600',
       bgColor: 'bg-purple-100',
     },
     {
-      title: 'Total Revenue',
+      title: 'Ingreso Total',
       value: `$${impact.revenue.toLocaleString()}`,
       icon: DollarSign,
       color: 'text-indigo-600',
@@ -79,7 +79,7 @@ const SustainabilityImpactSection: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900">Your Sustainability Impact</h2>
+      <h2 className="text-2xl font-bold text-gray-900">Tu impacto sostenible</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
         {metrics.map((metric) => {
@@ -105,19 +105,19 @@ const SustainabilityImpactSection: React.FC = () => {
 
       <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-6 border border-green-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-3">
-          🌱 Making a Difference
+          🌱 Haciendo la diferencia
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
           <div>
             <p className="mb-2">
-              <strong>Environmental Impact:</strong> Your sustainable farming practices have 
-              contributed to a cleaner environment by reducing carbon emissions and conserving water.
+              <strong>Impacto Ambiental:</strong> Tus prácticas agrícolas sostenibles han
+              contribuido a un ambiente más limpio al reducir las emisiones de carbono y conservar el agua.
             </p>
           </div>
           <div>
             <p>
-              <strong>Community Benefits:</strong> By connecting directly with buyers, you're 
-              supporting local food systems and providing transparency in the supply chain.
+              <strong>Beneficios para la Comunidad:</strong> Al conectarte directamente con los compradores, 
+              estás apoyando los sistemas alimentarios locales y proporcionando transparencia en la cadena de suministro.
             </p>
           </div>
         </div>

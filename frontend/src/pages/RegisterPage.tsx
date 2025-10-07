@@ -41,9 +41,9 @@ const RegisterPage: React.FC = () => {
           <div className="flex justify-center">
             <Leaf className="h-12 w-12 text-green-600" />
           </div>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">Join AgroTrace</h2>
+          <h2 className="mt-6 text-3xl font-bold text-gray-900">Únete a BioTrazo</h2>
           <p className="mt-2 text-sm text-gray-600">
-            Create your account and start your sustainable journey
+            Crea tu cuenta y comienza tu viaje sostenible
           </p>
         </div>
 
@@ -51,7 +51,7 @@ const RegisterPage: React.FC = () => {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                I am a
+                Soy
               </label>
               <div className="flex space-x-4">
                 <button
@@ -65,7 +65,7 @@ const RegisterPage: React.FC = () => {
                 >
                   <div className="flex items-center justify-center space-x-2">
                     <Leaf className="h-5 w-5" />
-                    <span className="font-medium">Farmer</span>
+                    <span className="font-medium">Productor</span>
                   </div>
                 </button>
                 <button
@@ -79,7 +79,7 @@ const RegisterPage: React.FC = () => {
                 >
                   <div className="flex items-center justify-center space-x-2">
                     <User className="h-5 w-5" />
-                    <span className="font-medium">Buyer</span>
+                    <span className="font-medium">Comprador</span>
                   </div>
                 </button>
               </div>
@@ -87,7 +87,7 @@ const RegisterPage: React.FC = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Full name
+                Nombre completo
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -99,14 +99,14 @@ const RegisterPage: React.FC = () => {
                   value={formData.name}
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                   className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
-                  placeholder="Your full name"
+                  placeholder="Nombre completo"
                 />
               </div>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Email address
+                Correo Electrónico
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -118,14 +118,14 @@ const RegisterPage: React.FC = () => {
                   value={formData.email}
                   onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                   className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
-                  placeholder="your@email.com"
+                  placeholder="tu@correo.com"
                 />
               </div>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Password
+                Contraseña
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -137,14 +137,14 @@ const RegisterPage: React.FC = () => {
                   value={formData.password}
                   onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
                   className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
-                  placeholder="Create a password"
+                  placeholder="Crea una contraseña"
                 />
               </div>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Confirm password
+                Confirmar contraseña
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -156,7 +156,7 @@ const RegisterPage: React.FC = () => {
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData(prev => ({ ...prev, confirmPassword: e.target.value }))}
                   className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
-                  placeholder="Confirm your password"
+                  placeholder="Confirma tu contraseña"
                 />
               </div>
             </div>
@@ -166,15 +166,15 @@ const RegisterPage: React.FC = () => {
               disabled={loading}
               className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
             >
-              {loading ? 'Creating account...' : 'Create Account'}
+              {loading ? 'Creando cuenta...' : 'Crear cuenta'}
             </button>
           </form>
 
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
-              Already have an account?{' '}
+              ¿Ya tienes una cuenta?{' '}
               <Link to="/login" className="font-medium text-green-600 hover:text-green-500">
-                Sign in here
+                Inicia sesión aquí
               </Link>
             </p>
           </div>

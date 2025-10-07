@@ -2,7 +2,7 @@ import { Lot } from '../types';
 
 const generateQRCode = (lotId: string): string => {
   // Mock QR code generation - replace with actual QR code library
-  return `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`https://agrotrace.com/lot/${lotId}`)}`;
+  return `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=prueba de lote`;
 };
 
 export const lotsService = {

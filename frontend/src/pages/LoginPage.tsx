@@ -39,7 +39,7 @@ const LoginPage: React.FC = () => {
           </div>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">Bienvenido a BioTrazo</h2>
           <p className="mt-2 text-sm text-gray-600">
-            Sign in to your sustainable agriculture platform
+            Ingresa a tu plataforma de agricultura sostenible.
           </p>
         </div>
 
@@ -47,7 +47,7 @@ const LoginPage: React.FC = () => {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                I am a
+                Soy
               </label>
               <div className="flex space-x-4">
                 <button
@@ -60,7 +60,7 @@ const LoginPage: React.FC = () => {
                 >
                   <div className="flex items-center justify-center space-x-2">
                     <Leaf className="h-5 w-5" />
-                    <span className="font-medium">Farmer</span>
+                    <span className="font-medium">Productor</span>
                   </div>
                 </button>
                 <button
@@ -73,7 +73,7 @@ const LoginPage: React.FC = () => {
                 >
                   <div className="flex items-center justify-center space-x-2">
                     <User className="h-5 w-5" />
-                    <span className="font-medium">Buyer</span>
+                    <span className="font-medium">Comprador</span>
                   </div>
                 </button>
               </div>
@@ -81,7 +81,7 @@ const LoginPage: React.FC = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Email address
+                Correo Electrónico
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -100,7 +100,7 @@ const LoginPage: React.FC = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Password
+                Contraseña
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -112,7 +112,7 @@ const LoginPage: React.FC = () => {
                   value={formData.password}
                   onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
                   className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
-                  placeholder="Enter your password"
+                  placeholder="Ingresa tu contraseña"
                 />
               </div>
             </div>
@@ -122,7 +122,7 @@ const LoginPage: React.FC = () => {
               disabled={loading}
               className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
             >
-              {loading ? 'Signing in...' : 'Sign In'}
+              {loading ? 'Ingresando...' : 'Ingresar'}
             </button>
 
             {errorMessage && (
@@ -135,16 +135,16 @@ const LoginPage: React.FC = () => {
 
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
-              Don't have an account?{' '}
+              ¿No tienes una cuenta?{' '}
               <Link to="/register" className="font-medium text-green-600 hover:text-green-500">
-                Sign up here
+                Regístrate aquí
               </Link>
             </p>
           </div>
         </div>
 
         <div className="text-center text-xs text-gray-500">
-          <p>Demo credentials: Use any email/password combination</p>
+          <p> </p>
         </div>
       </div>
     </div>
