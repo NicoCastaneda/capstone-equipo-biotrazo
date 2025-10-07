@@ -1,81 +1,162 @@
 import { Lot } from '../types';
 
-const generateQRCode = (lotId: string): string => {
-  // Mock QR code generation - replace with actual QR code library
-  return `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=prueba de lote`;
-};
+const API_URL = 'http://127.0.0.1:5000/api';
 
-export const lotsService = {
-  async createLot(lotData: Omit<Lot, 'id' | 'qrCode' | 'createdAt' | 'status'>): Promise<Lot> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const id = Math.random().toString(36).substr(2, 9);
-        const lot: Lot = {
-          ...lotData,
-          id,
-          qrCode: generateQRCode(id),
-          status: 'available',
-          createdAt: new Date().toISOString(),
-        };
-        resolve(lot);
-      }, 1000);
-    });
-  },
+interface CreateLotData {
+  farmerId: string;
+  farmerName: string;
+  type: string;
+  quantity: number;
+  unit: string;
+  harvestDate: string;
+  location: string;
+  certifications: string[];
+  price: number;
+  currency: string;
+  sustainabilityMetrics?: {
+    carbonSaved: number;
+    waterSaved: number;
+    emissionsReduced: number;
+  };
+}
 
-  async getLots(filters?: { farmerId?: string; status?: string }): Promise<Lot[]> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const mockLots: Lot[] = [
-          {
-            id: '1',
-            farmerId: 'farmer1',
-            farmerName: 'Green Valley Farm',
-            type: 'Organic Tomatoes',
-            quantity: 500,
-            unit: 'kg',
-            harvestDate: '2025-01-10',
-            location: 'California, USA',
-            certifications: ['Organic', 'Fair Trade'],
-            price: 12.50,
-            currency: 'USD',
-            qrCode: generateQRCode('1'),
-            sustainabilityMetrics: {
-              carbonSaved: 45.5,
-              waterSaved: 120,
-              emissionsReduced: 23.2,
-            },
-            status: 'available',
-            createdAt: '2025-01-01T00:00:00.000Z',
-          },
-          {
-            id: '2',
-            farmerId: 'farmer2',
-            farmerName: 'Sustainable Harvest Co.',
-            type: 'Free-range Eggs',
-            quantity: 1200,
-            unit: 'dozen',
-            harvestDate: '2025-01-12',
-            location: 'Vermont, USA',
-            certifications: ['Free Range', 'Organic'],
-            price: 8.75,
-            currency: 'USD',
-            qrCode: generateQRCode('2'),
-            sustainabilityMetrics: {
-              carbonSaved: 32.1,
-              waterSaved: 85,
-              emissionsReduced: 18.7,
-            },
-            status: 'available',
-            createdAt: '2025-01-02T00:00:00.000Z',
-          },
-        ];
-        resolve(mockLots);
-      }, 800);
-    });
-  },
+class LotsService {
+  private getAuthToken(): string {
+    const token = localStorage.getItem('agrotraceToken');
+    if (!token) {
+      throw new Error('No authentication token found');
+    }
+    return token;
+  }
 
-  async getLotById(id: string): Promise<Lot | null> {
-    const lots = await this.getLots();
-    return lots.find(lot => lot.id === id) || null;
-  },
-};
+  async createLot(data: CreateLotData): Promise<Lot> {
+    try {
+      console.log('📤 Enviando datos al backend:', data);
+  
+      // Solo enviar campos que el backend soporta
+      const backendData = {
+        crop_type: data.type,
+        quantity: data.quantity,
+        unit: data.unit,
+        location: data.location,
+        harvest_date: data.harvestDate,
+      };
+  
+      console.log('🔄 Datos transformados para backend:', backendData);
+
+      const response = await fetch(`${API_URL}/lots`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.getAuthToken()}`,
+        },
+        body: JSON.stringify(backendData),
+      });
+
+      const result = await response.json();
+      console.log('📥 Respuesta del backend:', result);
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Error al crear lote');
+      }
+
+      // Transformar respuesta del backend al formato del frontend
+      const backendLot = result.lot;
+      const frontendLot: Lot = {
+        id: backendLot.id,
+        farmerId: backendLot.farmer_uid,
+        farmerName: data.farmerName,
+        type: backendLot.crop_type,
+        quantity: backendLot.quantity,
+        unit: backendLot.unit,
+        harvestDate: backendLot.harvest_date || data.harvestDate,
+        location: backendLot.location,
+        certifications: data.certifications,
+        price: data.price,
+        currency: data.currency,
+        status: backendLot.status,
+        qrCode: backendLot.qr_code,
+        createdAt: backendLot.created_at,
+        sustainabilityMetrics: data.sustainabilityMetrics || {
+          carbonSaved: 0,
+          waterSaved: 0,
+          emissionsReduced: 0,
+        },
+      };
+
+      console.log('✅ Lote creado exitosamente:', frontendLot);
+      return frontendLot;
+
+    } catch (error: any) {
+      console.error('❌ Error al crear lote:', error);
+      throw new Error(error.message || 'Error al crear lote');
+    }
+  }
+
+  async getLots(): Promise<Lot[]> {
+    try {
+      const response = await fetch(`${API_URL}/lots`, {
+        headers: {
+          'Authorization': `Bearer ${this.getAuthToken()}`,
+        },
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Error al obtener lotes');
+      }
+
+      // Transformar lotes del backend al formato del frontend
+      return result.lots.map((backendLot: any) => ({
+        id: backendLot.id,
+        farmerId: backendLot.farmer_uid,
+        farmerName: 'Agricultor', // Puedes obtener esto de otro lugar
+        type: backendLot.crop_type,
+        quantity: backendLot.quantity,
+        unit: backendLot.unit,
+        harvestDate: backendLot.harvest_date,
+        location: backendLot.location,
+        certifications: [],
+        price: 0,
+        currency: 'COP',
+        status: backendLot.status,
+        qrCode: backendLot.qr_code,
+        traceabilityCode: backendLot.traceability_code,
+        createdAt: backendLot.created_at,
+        sustainabilityMetrics: {
+          carbonSaved: 0,
+          waterSaved: 0,
+          emissionsReduced: 0,
+        },
+      }));
+
+    } catch (error: any) {
+      console.error('❌ Error al obtener lotes:', error);
+      throw new Error(error.message || 'Error al obtener lotes');
+    }
+  }
+
+  async deleteLot(lotId: string): Promise<void> {
+    try {
+      const response = await fetch(`${API_URL}/lots/${lotId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${this.getAuthToken()}`,
+        },
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Error al eliminar lote');
+      }
+
+    } catch (error: any) {
+      console.error('❌ Error al eliminar lote:', error);
+      throw new Error(error.message || 'Error al eliminar lote');
+    }
+  }
+}
+
+export const lotsService = new LotsService();
