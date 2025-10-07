@@ -1,0 +1,146 @@
+## HISTPRIAS DE USUARIO
+## Épica 1: Autenticación y Usuarios
+
+1.1 Registro con email
+Como agricultor o comprador,
+quiero registrar mi cuenta con email y contraseña,
+para acceder al sistema desde cualquier dispositivo.
+
+Given que ingreso datos válidos,
+When presiono "Crear cuenta",
+Then se crea el usuario y se envía email de verificación.
+
+1.2 Login con email
+Como usuario registrado,
+quiero iniciar sesión con email y contraseña,
+para acceder a mis funciones (gestionar lotes u ofertas).
+
+Given que ingreso credenciales válidas,
+When presiono "Iniciar sesión",
+Then accedo al sistema.
+
+## Épica 2: Gestión de lotes (Agricultores)
+
+2.1 Crear lote
+Como agricultor,
+quiero registrar un lote con tipo de residuo, cantidad y fecha,
+para ofrecerlo a compradores interesados.
+
+Given que ingreso datos completos,
+When presiono "Guardar",
+Then el sistema genera un ID único y QR.
+
+2.2 Editar lote
+Como agricultor,
+quiero actualizar la información de un lote,
+para corregir datos o agregar detalles.
+
+Given que selecciono un lote,
+When edito la información,
+Then los cambios quedan guardados.
+
+## Épica 3: Búsqueda y ofertas (Compradores)
+
+3.1 Ver lotes disponibles
+Como comprador,
+quiero consultar los lotes publicados por agricultores,
+para identificar oportunidades de compra.
+
+Given que hay lotes registrados,
+When ingreso a “Lotes disponibles”,
+Then veo la lista con ubicación, cantidad y precio base.
+
+3.2 Filtrar lotes
+Como comprador,
+quiero filtrar lotes por tipo de residuo y región,
+para encontrar los más relevantes para mi empresa.
+
+Given que aplico un filtro,
+When ejecuto la búsqueda,
+Then veo solo los lotes que cumplen los criterios.
+
+3.3 Hacer oferta por un lote
+Como comprador,
+quiero enviar una oferta sobre un lote,
+para negociar directamente con el agricultor.
+
+Given que selecciono un lote,
+When ingreso mi oferta,
+Then el agricultor recibe la propuesta en la plataforma.
+
+3.4 Aceptar o rechazar oferta
+Como agricultor,
+quiero aceptar o rechazar ofertas recibidas,
+para decidir a quién vender.
+
+Given que recibo una oferta,
+When la reviso,
+Then puedo aceptar o rechazar y se notifica al comprador.
+
+## Épica 4: Recomendaciones
+
+4.1 Recomendación de comprador
+Como agricultor,
+quiero recibir sugerencias de compradores interesados,
+para vender más rápido y al mejor precio.
+
+Given que registro un lote,
+When el sistema analiza compradores y ubicación,
+Then me sugiere con quién negociar.
+
+## Épica 5: Notificaciones
+
+5.1 Notificación de nueva oferta
+Como agricultor,
+quiero recibir una alerta cuando un comprador haga una oferta,
+para responder oportunamente.
+
+Given que un comprador hace una oferta,
+When se registra en el sistema,
+Then recibo notificación en la app.
+
+5.2 Notificación de respuesta a oferta
+Como comprador,
+quiero saber si mi oferta fue aceptada o rechazada,
+para planear mis compras.
+
+Given que el agricultor responde,
+When actualiza el estado,
+Then recibo una notificación clara.
+
+## Épica 6: Carbon Reducido
+
+6.1 Visualizador
+Como usuario quiero poder visualizar con mis compras o ventas cuanto uso de carbón he ahorrado por medio de una interfaz sencilla.
+Given que hay al menos una venta/compra
+When ingreso a "tu huella"
+Then veo la cantidad de carbon y las emisiones reducidas
+
+## Épica 7: Trazabilidad
+
+7.1 Escaneo en el origen (agricultor)
+Como agricultor,
+quiero escanear el QR del lote al momento de salida de mi finca,
+para validar que la entrega se ha iniciado y quede registrado el punto de origen.
+
+Given que un lote tiene un QR generado,
+When escaneo el código al despachar el residuo,
+Then el sistema registra fecha, hora y ubicación de salida.
+
+7.2 Escaneo en el destino (comprador/industria)
+Como comprador,
+quiero escanear el QR al recibir el lote en la planta,
+para verificar que llegó en condiciones correctas y cerrar el ciclo de transporte.
+
+Given que un lote fue enviado,
+When escaneo el QR al recibirlo,
+Then el sistema confirma la recepción y actualiza el estado a “Entregado en destino”.
+
+7.3 Validación en la industria + Incentivo de sostenibilidad
+Como industria compradora,
+quiero registrar el uso del residuo y la cantidad de carbón sustituido,
+para recibir puntos de sostenibilidad que me sirvan como incentivo tributario o reputacional.
+
+Given que he recibido un lote de residuos,
+When registro el proceso donde se usó y la cantidad de carbón reemplazado,
+Then el sistema calcula los puntos de sostenibilidad asociados y los acumula en mi perfil empresarial.
