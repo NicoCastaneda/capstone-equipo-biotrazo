@@ -118,7 +118,7 @@ class LotsService {
         harvestDate: backendLot.harvest_date,
         location: backendLot.location,
         certifications: [],
-        price: 0,
+        price: backendLot.price,
         currency: 'COP',
         status: backendLot.status,
         qrCode: backendLot.qr_code,

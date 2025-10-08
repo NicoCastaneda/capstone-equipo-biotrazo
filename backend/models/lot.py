@@ -30,7 +30,7 @@ class Lot:
         
         # Nuevos campos
         self.certifications = certifications or []
-        self.price = price or 0
+        self.price = price 
         self.currency = currency or 'COP'
         self.sustainability_metrics = sustainability_metrics or {
             'carbonSaved': 0,
